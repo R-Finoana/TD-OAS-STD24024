@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: Define a model and multiple operations
+  version: 1.0.0
+servers:
+  - url: 'http:localhost:8000'
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean
+      example:
+        id: 1
+        title: "Faire les courses"
+        completed: false
+
+paths:
+  /tasks:
+    get:
+      responses:
+        200:
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+      responses:
+        201:
+          description: Create a list of new tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    delete:
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+                    description: Delete list of tasks in the ids' list
+                    example: [ 1, 2, 3 ]
+                required:
+                  - ids
+          required: true
+        responses:
+          200:
+            description: List of deleted tasks
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Task'
+
+  /tasks/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: Task found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        404:
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Task not found
+    delete:
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: Task deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
