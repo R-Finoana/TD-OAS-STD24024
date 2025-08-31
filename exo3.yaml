@@ -20,6 +20,17 @@ components:
         id: 1
         title: "Faire les courses"
         completed: false
+    DeleteTasks:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+          description: Delete list of tasks in the ids' list
+          example: [ 1, 2, 3 ]
+      required:
+        - ids
 
 paths:
   /tasks:
@@ -55,16 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ids:
-                    type: array
-                    items:
-                      type: integer
-                    description: Delete list of tasks in the ids' list
-                    example: [ 1, 2, 3 ]
-                required:
-                  - ids
+                $ref: '#/components/schemas/DeleteTasks'
           required: true
         responses:
           200:
