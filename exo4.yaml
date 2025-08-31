@@ -62,7 +62,7 @@ paths:
                 nonEmptyList:
                   summary: List of products
                   value:
-                    - name: "Milk",
+                    - name: "Milk"
                       expiration_datetime: "2026-08-31T17:45:30Z"
                       price: 12000.0
                     - name: "Cookies"
@@ -71,6 +71,14 @@ paths:
                 emptyList:
                   summary: List of an empty list
                   value: []
+        400:
+          description: No product found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                message: No product found
 
 
   
