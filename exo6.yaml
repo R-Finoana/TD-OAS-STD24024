@@ -6,6 +6,10 @@ info:
 servers:
   - url: 'http:localhost:8000'
 
+tags:
+  - name: Users
+    description: User infos
+
 components:
   schemas:
     PersonalInfo:
@@ -95,7 +99,40 @@ components:
         - address_postal_code
         - needs_newsletter
         - language
+  parameters:
+    Id:
+      name: id
+      in: path
+      schema:
+        type: object
+      required: true
 
 paths:
- 
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      description: Returns the user with all their information
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        200:
+          description: User Info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+              example:
+                identifier: "test123"
+                first_name: "Test"
+                last_name: "Example"
+                birthdate: "2000-01-02"
+                email: "test@example.com"
+                address_street: "123 Test Street"
+                address_city: "Los Angeles"
+                address_country: "America"
+                address_postal_code: "88901"
+                needs_newsletter: true
+                language: "eng"
+
 
