@@ -62,6 +62,10 @@ components:
         type: string
         required: false
         description: Search term
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
 
 paths:
   /products:
@@ -122,6 +126,44 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 message: "No orders found"
+    post:
+      tags:
+        - Orders
+      description: Create an order with a list of products, protected by Basic authentication
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "#/components/schemas/Order"
+      responses:
+        201:
+          description: Create an order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        400:
+          description: Invalid order data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: "Invalid order data"
+        401:
+          description: Authorization required or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: "Authorization required or invalid"
 
 
   
