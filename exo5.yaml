@@ -130,6 +130,19 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Order"
+              examples:
+                - id: 1
+                  order_date: "2025-09-01T09:54:00Z"
+                  products:
+                    - name: "Milk"
+                      expiration_datetime: "2026-08-31T17:45:30Z"
+                      price: 12000.0
+                - id: 2
+                  order_date: "2025-09-02T10:00:00Z"
+                  products:
+                    - name: "Cookies"
+                      expiration_datetime: "2025-12-22T10:25:37Z"
+                      price: 25000.0
         404:
           description: No orders found
           content:
@@ -151,6 +164,16 @@ paths:
             schema:
               items:
                 $ref: "#/components/schemas/Order"
+            example:
+              id: 3
+              order_date: "2025-09-03T14:30:00Z"
+              products:
+                - name: "Milk"
+                  expiration_datetime: "2026-08-31T17:45:30Z"
+                  price: 12000.0
+                - name: "Cookies"
+                  expiration_datetime: "2025-12-22T10:25:37Z"
+                  price: 25000.0
       responses:
         201:
           description: Create an order
@@ -160,6 +183,16 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Order"
+              example:
+                id: 3
+                order_date: "2025-09-03T14:30:00Z"
+                products:
+                  - name: "Milk"
+                    expiration_datetime: "2026-08-31T17:45:30Z"
+                    price: 12000.0
+                  - name: "Cookies"
+                    expiration_datetime: "2025-12-22T10:25:37Z"
+                    price: 25000.0
         400:
           description: Invalid order data
           content:
