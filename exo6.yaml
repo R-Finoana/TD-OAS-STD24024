@@ -134,5 +134,69 @@ paths:
                 address_postal_code: "88901"
                 needs_newsletter: true
                 language: "eng"
+    post:
+      tags:
+        - Users
+      description: Creates a list of users without ids, and returns the list of users created with their ids
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CreateUserProfile"
+            example:
+              - first_name: "Rakoto"
+                last_name: "Rabe"
+                email: "rakotorabe@gmail.com"
+                language: "mg"
+                birthdate: "1990-05-15"
+                address_street: "524 Boulevard de l'Europe"
+                address_city: "Antananarivo"
+                address_country: "Madagascar"
+                address_postal_code: "101"
+                needs_newsletter: false
+              - first_name: "Anne"
+                last_name: "Martin"
+                email: "anne.martin@example.com"
+                language: "eng"
+                birthdate: "1999-06-22"
+                address_street: "789 Central Park"
+                address_city: "London"
+                address_country: "United Kingdom"
+                address_postal_code: "SW1A 1AA"
+                needs_newsletter: true
+      responses:
+        201:
+          description: List of users created
+          content:
+            application/json:
+               schema:
+                 type: array
+                 items:
+                  $ref: "#/components/schemas/UserProfile"
+               example:
+                  - identifier: "12rakoto"
+                    first_name: "Rakoto"
+                    last_name: "Rabe"
+                    birthdate: "1990-05-15"
+                    email: "rakotorabe@gmail.com"
+                    address_street: "524 Boulevard de l'Europe"
+                    address_city: "Antananarivo"
+                    address_country: "Madagascar"
+                    address_postal_code: "101"
+                    needs_newsletter: false
+                    language: "mg"
+                  - identifier: "user_2"
+                    first_name: "Anne"
+                    last_name: "Martin"
+                    birthdate: "1999-06-22"
+                    email: "anne.martin@example.com"
+                    address_street: "789 Central Park"
+                    address_city: "London"
+                    address_country: "United Kingdom"
+                    address_postal_code: "SW1A 1AA"
+                    needs_newsletter: true
 
 
