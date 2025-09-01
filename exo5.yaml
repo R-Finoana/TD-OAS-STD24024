@@ -9,6 +9,8 @@ servers:
 tags:
   - name: Products
     description: Product management related-activities
+  - name: Orders
+    description: Order management operations
 
 components:
   schemas:
@@ -36,6 +38,14 @@ components:
         total_amount:
           type: number
           format: float
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Invalid order/product data"
+      required:
+        - message
   parameters:
     Limit:
       name: limit
@@ -83,5 +93,35 @@ paths:
                 emptyList:
                   summary: Empty List
                   value: []
+        404:
+          description: No product found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: "No products found"
+  /orders:
+    get:
+      tags:
+        - Orders
+      responses:
+        200:
+          description: Paginated order List
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        404:
+          description: No orders found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                message: "No orders found"
+
 
   
